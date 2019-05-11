@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
+const db = require('../db');
 
 
 const app = express();
