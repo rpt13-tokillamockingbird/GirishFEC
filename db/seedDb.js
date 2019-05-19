@@ -6,7 +6,7 @@ const seedData = function () {
   for (let i = 0; i < 100; i++) {
 
     const rating = Math.floor(Math.random() * 5 + 1);
-    const id = i + 1;
+    const id = 5000 + i ;
     const title = faker.lorem.sentence();
     const detail = faker.lorem.sentences();
     const create_date = faker.date.recent();

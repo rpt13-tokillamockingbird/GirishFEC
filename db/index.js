@@ -7,6 +7,21 @@ const dbConnection =  mysql.createConnection({
   database: "review"
 });
 
-dbConnection.connect();
+const getProductDetail = function(id) {
+  return new Promise ((resolve, reject) => {
+    dbConnection.query(`select Id, RATING, TITLE, DETAIL, CREATE_DATE, AUTHOR, SOURCE from review_detail where Id = ${id}`, (err, res) => {
+      if(err){
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    }); }
+  );
+}
 
-module.exports.dbConnection = dbConnection;
+
+// dbConnection.connect();
+
+module.exports = { dbConnection,
+                   getProductDetail};
+
