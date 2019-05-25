@@ -14,8 +14,11 @@ var port = 1204;
 
 app.use(express.static('public'));
 
+app.use('/:id', express.static('public'));
+
 app.get('/review/:id', (req, res) => {
   let id = req.params.id;
+  console.log('in review/:id', id);
 
 
   db.getProductDetail(id).then((result) => {
@@ -24,11 +27,14 @@ app.get('/review/:id', (req, res) => {
 
 });
 
-app.get('/review', (req, res) => {
-  db.getProductDetail().then((results) => {
+app.get('/reviews/all', (req, res) => {
+  console.log('in review');
+  db.getProductDetailAll().then((results) => {
     res.status(200).json(results);
   });
 });
+
+
 
 
 app.listen(port, () => {
