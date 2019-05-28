@@ -20,20 +20,23 @@ class App extends React.Component {
   }
   componentDidMount() {
     let route = window.location.pathname;
+
     if (route !== '/') {
       route = route.substring(1, route.length - 1);
+
       $.ajax({
         url: `/review/${route}`,
         type: 'get',
         dataType: 'json',
         success: (data) => {
-          console.log('in route /id : ', data);
-          this.setState({ review: data });
-
+          console.log('Before setState: ', this.state.review);
+          this.setState({ review: data }, ()=>console.log('After setState ', this.state.review));
         }
       });
+
     } else {
-      console.log('In else');
+
+      console.log('In else of route');
       var dataArr = [];
       $.ajax({
         url: '/reviews/all',
@@ -62,15 +65,17 @@ class App extends React.Component {
   }
 
   render() {
-    // let rev = this.state.review[0];
-    // console.log('In render rev : ', rev);
+    let rev = this.state.review[0];
+    console.log('In render rev : ', rev);
 
 
     return (
+
       <div>
 
-        {
-          this.state.review.map((rev) => {
+      {
+          this.state.review.map((rev) =>
+
             <div key={rev.Id}>
               <span>Rating : {rev.RATING}</span>
               <br></br>
@@ -79,10 +84,10 @@ class App extends React.Component {
               <span>Detail : {rev.DETAIL}</span>
               <br></br>
               <span>Author : {rev.AUTHOR} : Source : {rev.SOURCE}</span>
+              <br></br>
             </div>
-          }
           )
-        }
+      }
       </div>
 
 
@@ -93,15 +98,3 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
-//     <div key={rev.id}>
-//       <span>Rating : {rev.rating}</span>
-//       <br></br>
-//       <span>Title : {rev.title}</span>
-//       <br></br>
-//       <span>Detail : {rev.detail}</span>
-//       <br></br>
-//       <span>Author : {rev.author} : Source : {rev.source}</span>
-//     </div>
-//   }
-//   )
-// }
