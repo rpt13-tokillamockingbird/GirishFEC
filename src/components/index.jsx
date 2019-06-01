@@ -1,6 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import moment from 'moment';
+import StarRatings from 'react-star-ratings';
+
+const titleStyle = {
+  'fontSize' : '19px',
+  'fontWeight' : 700,
+  'marginBottom' : '15px',
+  'fontFamily' : 'Brandon Text, sans-serif',
+  color : 'rgb(57, 57, 57)',
+  display : 'block'
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -72,12 +83,15 @@ class App extends React.Component {
     return (
 
       <div>
-
+        <span style ={titleStyle}>REVIEWS</span>
       {
           this.state.review.map((rev) =>
 
             <div key={rev.Id}>
-              <span>Rating : {rev.RATING}</span>
+              <br></br>
+              <StarRatings rating = {rev.RATING}
+              starDimension="24px"
+              />
               <br></br>
               <span>Title : {rev.TITLE}</span>
               <br></br>
@@ -85,6 +99,7 @@ class App extends React.Component {
               <br></br>
               <span>Author : {rev.AUTHOR} : Source : {rev.SOURCE}</span>
               <br></br>
+              <span>Date : {moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
             </div>
           )
       }
