@@ -7,7 +7,8 @@
     "server-dev": "node server/app.js",
     "start-dev": "concurrently \"npm run server-dev\" \"npm run react-dev\"",
     "start": "node server/app.js",
-    "seed": "node db/seedDb.js"
+    "seed": "node db/seedDb.js",
+    "test": "jest"
   },
   "dependencies": {
     "babel-loader": "^8.0.6",
@@ -28,16 +29,17 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.8.0",
+    "concurrently": "^4.1.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "enzyme-to-json": "^3.3.5",
     "jest": "^24.8.0",
     "react-star-ratings": "^2.3.0"
   },
-  "setupFiles": [
-    "./src/setupTests.js"
-  ],
   "jest": {
+    "setupFiles": [
+      "./src/setupTests.js"
+    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]

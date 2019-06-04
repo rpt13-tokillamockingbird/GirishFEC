@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
 import StarRatings from 'react-star-ratings';
+import starRatings from 'react-star-ratings/build/star-ratings';
 
 const titleStyle = {
   'fontSize' : '19px',
@@ -18,15 +19,17 @@ class App extends React.Component {
     super(props);
     this.state = {
       review: [{
+        _id:0,
         Id: 1,
         TITLE: 'testTitle',
         DETAIL: 'testing this detail',
         AUTHOR: 'testAuthor',
         SOURCE: 'testSource',
-        CREATE_DATE: '06/01/2019',
+        CREATE_DATE: moment(),
         RATING: 5
       }
-      ]
+      ],
+      avgRating : 0
     }
   }
   componentDidMount() {
@@ -40,14 +43,16 @@ class App extends React.Component {
         type: 'get',
         dataType: 'json',
         success: (data) => {
-          console.log('Before setState: ', this.state.review);
-          this.setState({ review: data }, ()=>console.log('After setState ', this.state.review));
+          let average = 0;
+          if (data.length) {
+            data.forEach(val => {average += val.RATING});
+            average = (average / data.length);
+          }
+          this.setState({ review: data, avgRating : average });
         }
       });
 
     } else {
-
-      console.log('In else of route');
       var dataArr = [];
       $.ajax({
         url: '/reviews/all',
@@ -56,6 +61,7 @@ class App extends React.Component {
         success: (data) => {
           data.forEach(val => {
             dataArr.push({
+              _id: val._id,
               Id: val.Id,
               TITLE: val.TITLE,
               DETAIL: val.DETAIL,
@@ -66,8 +72,10 @@ class App extends React.Component {
             })
           });
           if (dataArr.length) {
-            console.log('dataArr :', dataArr);
-            this.setState({ review: dataArr.slice() });
+            let average = 0;
+            data.forEach(val => {average += val.RATING});
+            average = Math.ceil(average / data.length);
+            this.setState({ review: dataArr.slice(), avgRating: average });
           }
         }
       });
@@ -76,21 +84,28 @@ class App extends React.Component {
   }
 
   render() {
-    let rev = this.state.review[0];
-    console.log('In render rev : ', rev);
-
 
     return (
 
-      <div>
+      <div className = 'ReviewTitle'>
         <span style ={titleStyle}>REVIEWS</span>
+        {this.state.avgRating > 0
+        ? <StarRatings rating = {Math.round(this.state.avgRating * 2)/2}
+           starDimension="24px"
+           starSpacing="0px"
+           starRatedColor="#393939"
+          />
+          :<br></br>
+        }
       {
           this.state.review.map((rev) =>
 
-            <div key={rev.Id}>
+            <div className = 'reviewDetail' key={rev._id}>
               <br></br>
               <StarRatings rating = {rev.RATING}
-              starDimension="24px"
+              starDimension="16px"
+              starSpacing="0px"
+              starRatedColor="#393939"
               />
               <br></br>
               <span>Title : {rev.TITLE}</span>
