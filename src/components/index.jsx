@@ -6,12 +6,26 @@ import StarRatings from 'react-star-ratings';
 import starRatings from 'react-star-ratings/build/star-ratings';
 
 const titleStyle = {
-  'fontSize' : '19px',
-  'fontWeight' : 700,
-  'marginBottom' : '15px',
-  'fontFamily' : 'Brandon Text, sans-serif',
-  color : 'rgb(57, 57, 57)',
-  display : 'block'
+  'fontSize': '16px',
+  'fontWeight': 700,
+  'marginBottom': '15px',
+  'fontFamily': 'Brandon Text, sans-serif',
+  color: 'rgb(57, 57, 57)',
+  display: 'block'
+};
+const buttonStyle = {
+  'borderWidth':'1px',
+  'borderRadius':0,
+  'borderStyle':'solid',
+  'fontSize':'19px',
+  'height':'50px',
+  // 'width': '100%',
+  'alignItems': 'center',
+  'padding': '0 30px',
+  'justifyContent': 'center',
+  'cursor':'pointer',
+  'textDecoration':'none',
+  'color':'#393939'
 };
 
 class App extends React.Component {
@@ -19,7 +33,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       review: [{
-        _id:0,
+        _id: 0,
         Id: 1,
         TITLE: 'testTitle',
         DETAIL: 'testing this detail',
@@ -29,7 +43,7 @@ class App extends React.Component {
         RATING: 5
       }
       ],
-      avgRating : 0
+      avgRating: 0
     }
   }
   componentDidMount() {
@@ -45,10 +59,10 @@ class App extends React.Component {
         success: (data) => {
           let average = 0;
           if (data.length) {
-            data.forEach(val => {average += val.RATING});
+            data.forEach(val => { average += val.RATING });
             average = (average / data.length);
           }
-          this.setState({ review: data, avgRating : average });
+          this.setState({ review: data, avgRating: average });
         }
       });
 
@@ -73,7 +87,7 @@ class App extends React.Component {
           });
           if (dataArr.length) {
             let average = 0;
-            data.forEach(val => {average += val.RATING});
+            data.forEach(val => { average += val.RATING });
             average = Math.ceil(average / data.length);
             this.setState({ review: dataArr.slice(), avgRating: average });
           }
@@ -87,37 +101,52 @@ class App extends React.Component {
 
     return (
 
-      <div className = 'ReviewTitle'>
-        <span style ={titleStyle}>REVIEWS</span>
+      <div className='ReviewTitle'>
+        <span style={titleStyle}>REVIEWS</span>
         {this.state.avgRating > 0
-        ? <StarRatings rating = {Math.round(this.state.avgRating * 2)/2}
-           starDimension="24px"
-           starSpacing="0px"
-           starRatedColor="#393939"
+          ? <div><StarRatings rating={Math.round(this.state.avgRating * 2) / 2}
+            starDimension="24px"
+            starSpacing="0px"
+            starRatedColor="#393939"
           />
-          :<br></br>
+            <div>
+              <strong>Fit rating:</strong>
+              <span> runs true to size</span>
+            </div>
+            <div>
+              <strong>Width rating:</strong>
+              <span> runs true to size</span>
+            </div>
+            <div >
+              <a href="" role="button" style={buttonStyle}>
+                <span>Write a Review</span></a>
+            </div>
+          </div>
+          : <br></br>
         }
-      {
+        {
           this.state.review.map((rev) =>
 
-            <div className = 'reviewDetail' key={rev._id}>
+            <div className='reviewDetail' key={rev._id}>
               <br></br>
-              <StarRatings rating = {rev.RATING}
-              starDimension="16px"
-              starSpacing="0px"
-              starRatedColor="#393939"
+              <StarRatings rating={rev.RATING}
+                starDimension="16px"
+                starSpacing="0px"
+                starRatedColor="#393939"
               />
               <br></br>
-              <span>Title : {rev.TITLE}</span>
+              <strong>{rev.TITLE}</strong>
               <br></br>
-              <span>Detail : {rev.DETAIL}</span>
+              <span> {rev.DETAIL}</span>
               <br></br>
-              <span>Author : {rev.AUTHOR} : Source : {rev.SOURCE}</span>
+              <span> {rev.AUTHOR}  {rev.SOURCE}</span>
               <br></br>
-              <span>Date : {moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
+            <div>
+              <span>{moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
+              </div>
             </div>
           )
-      }
+        }
       </div>
 
 
