@@ -20,6 +20,19 @@ const getProductDetail = function(id) {
   );
 }
 
+const getPriyaDetail = function(id) {
+  console.log('In priya detail. ', id);
+  return new Promise((resolve, reject) => {
+    dbConnection.query(`select coalesce(avg(RATING), 0) productRating, count(*) productNumberOfRating from review_detail where Id = ${id}`, (err, res) =>{
+      if(err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+}
+
 const getProductDetailAll = function() {
   console.log('In product detail all');
   return new Promise ((resolve, reject) => {
@@ -38,6 +51,7 @@ const getProductDetailAll = function() {
 // dbConnection.connect();
 
 module.exports = { dbConnection,
-                   getProductDetail,
-                  getProductDetailAll};
+                  getProductDetail,
+                  getProductDetailAll,
+                  getPriyaDetail};
 

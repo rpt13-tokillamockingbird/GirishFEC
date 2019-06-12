@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
 import StarRatings from 'react-star-ratings';
-import starRatings from 'react-star-ratings/build/star-ratings';
+// import starRatings from 'react-star-ratings/build/star-ratings';
 
 const titleStyle = {
   'fontSize': '16px',
@@ -28,7 +28,7 @@ const buttonStyle = {
   'color':'#393939'
 };
 
-class App extends React.Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -155,5 +155,9 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+export default Index;
+// module.exports = App;
+// ReactDOM.render(<App />, document.getElementById('app'));
+
+
 

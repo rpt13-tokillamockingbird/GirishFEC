@@ -34,7 +34,14 @@ app.get('/reviews/all', (req, res) => {
   });
 });
 
+app.get('/Priya/:id', (req, res) => {
+  let id = req.params.id;
+  console.log('in priya/:id ', id);
 
+  db.getPriyaDetail(id).then(result  => {
+    res.status(200).json(result[0]);
+  });
+});
 
 
 app.listen(port, () => {

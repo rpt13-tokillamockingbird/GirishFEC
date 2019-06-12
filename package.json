@@ -37,11 +37,14 @@
     "react-star-ratings": "^2.3.0"
   },
   "jest": {
-    "setupFiles": [
+
+    "setupFilesAfterEnv": [
       "./src/setupTests.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
     ]
+
   }
+
 }
+
+
+

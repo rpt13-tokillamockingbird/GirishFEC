@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import app from './index.jsx';
+import Index from './index.jsx';
 import { isTSAnyKeyword, exportAllDeclaration } from '@babel/types';
 
 describe('Review index', () => {
   it('Should render App correctly', () => {
-    const comp = shallow(app);
+    const comp = shallow(<Index />);
     expect(comp).toMatchSnapshot();
   });
 });
