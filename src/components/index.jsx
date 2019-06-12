@@ -10,22 +10,24 @@ const titleStyle = {
   'fontWeight': 700,
   'marginBottom': '15px',
   'fontFamily': 'Brandon Text, sans-serif',
-  color: 'rgb(57, 57, 57)',
-  display: 'block'
+  'color': 'rgb(57, 57, 57)',
+  'display': 'block'
+
+
 };
 const buttonStyle = {
-  'borderWidth':'1px',
-  'borderRadius':0,
-  'borderStyle':'solid',
-  'fontSize':'19px',
-  'height':'50px',
+  'borderWidth': '1px',
+  'borderRadius': 0,
+  'borderStyle': 'solid',
+  'fontSize': '13px',
+  'height': '50px',
   // 'width': '100%',
   'alignItems': 'center',
   'padding': '0 30px',
   'justifyContent': 'center',
-  'cursor':'pointer',
-  'textDecoration':'none',
-  'color':'#393939'
+  'cursor': 'pointer',
+  'textDecoration': 'none',
+  'color': '#393939'
 };
 
 class Index extends React.Component {
@@ -100,30 +102,37 @@ class Index extends React.Component {
   render() {
 
     return (
-
-      <div className='ReviewTitle'>
-        <span style={titleStyle}>REVIEWS</span>
-        {this.state.avgRating > 0
-          ? <div><StarRatings rating={Math.round(this.state.avgRating * 2) / 2}
-            starDimension="24px"
-            starSpacing="0px"
-            starRatedColor="#393939"
-          />
-            <div>
-              <strong>Fit rating:</strong>
-              <span> runs true to size</span>
+      <div className='Reviews'>
+        <div className='ReviewTitle' >
+          <span style={titleStyle}>REVIEWS</span>
+          {this.state.avgRating > 0
+            ? <div>
+              <div style={{float:'left'}}>
+              <StarRatings rating={Math.round(this.state.avgRating * 2) / 2}
+                starDimension="24px"
+                starSpacing="0px"
+                starRatedColor="#393939"
+              />
+              <span>  ({this.state.review.length})</span>
+              </div>
+              <div style={{float:'left', marginLeft: '30%'}}>
+              <div>
+                <strong>Fit rating:</strong>
+                <span> runs true to size</span>
+              </div>
+              <div>
+                <strong>Width rating:</strong>
+                <span> runs true to size</span>
+              </div>
+              </div>
             </div>
-            <div>
-              <strong>Width rating:</strong>
-              <span> runs true to size</span>
-            </div>
-            <div >
-              <a href="" role="button" style={buttonStyle}>
-                <span>Write a Review</span></a>
-            </div>
-          </div>
-          : <br></br>
-        }
+            : <br></br>
+          }
+        </div>
+        <div className="reviewButton" style={{float:'right'}}>
+          <a href="" role="button" style={buttonStyle}>
+            <span>Write a Review</span></a>
+        </div>
         {
           this.state.review.map((rev) =>
 
@@ -139,10 +148,10 @@ class Index extends React.Component {
               <br></br>
               <span> {rev.DETAIL}</span>
               <br></br>
-              <span> {rev.AUTHOR}  {rev.SOURCE}</span>
+              <span> {rev.AUTHOR} | {rev.SOURCE}</span>
               <br></br>
-            <div>
-              <span>{moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
+              <div>
+                <span>{moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
               </div>
             </div>
           )
