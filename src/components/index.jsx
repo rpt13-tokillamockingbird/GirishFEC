@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
 import StarRatings from 'react-star-ratings';
-// import starRatings from 'react-star-ratings/build/star-ratings';
 
 const titleStyle = {
   'fontSize': '16px',
@@ -12,8 +11,6 @@ const titleStyle = {
   'fontFamily': 'Brandon Text, sans-serif',
   'color': 'rgb(57, 57, 57)',
   'display': 'block'
-
-
 };
 const buttonStyle = {
   'borderWidth': '1px',
@@ -21,9 +18,8 @@ const buttonStyle = {
   'borderStyle': 'solid',
   'fontSize': '13px',
   'height': '50px',
-  // 'width': '100%',
   'alignItems': 'center',
-  'padding': '0 30px',
+  'padding': '0 60px',
   'justifyContent': 'center',
   'cursor': 'pointer',
   'textDecoration': 'none',
@@ -37,12 +33,12 @@ class Index extends React.Component {
       review: [{
         _id: 0,
         Id: 1,
-        TITLE: 'testTitle',
-        DETAIL: 'testing this detail',
-        AUTHOR: 'testAuthor',
-        SOURCE: 'testSource',
+        TITLE: '',
+        DETAIL: '',
+        AUTHOR: '',
+        SOURCE: '',
         CREATE_DATE: moment(),
-        RATING: 5
+        RATING: 0
       }
       ],
       avgRating: 0
@@ -107,66 +103,74 @@ class Index extends React.Component {
           <span style={titleStyle}>REVIEWS</span>
           {this.state.avgRating > 0
             ? <div>
-              <div style={{float:'left'}}>
-              <StarRatings rating={Math.round(this.state.avgRating * 2) / 2}
-                starDimension="24px"
-                starSpacing="0px"
-                starRatedColor="#393939"
-              />
-              <span>  ({this.state.review.length})</span>
+              <div style={{ float: 'left' }}>
+                <StarRatings rating={Math.round(this.state.avgRating * 2) / 2}
+                  starDimension="24px"
+                  starSpacing="0px"
+                  starRatedColor="#393939"
+                />
+                <span>  ({this.state.review.length})</span>
               </div>
-              <div style={{float:'left', marginLeft: '30%'}}>
-              <div>
-                <strong>Fit rating:</strong>
-                <span> runs true to size</span>
-              </div>
-              <div>
-                <strong>Width rating:</strong>
-                <span> runs true to size</span>
-              </div>
+              <div style={{ float: 'left', marginLeft: '30%' }}>
+                <div>
+                  <strong>Fit rating:</strong>
+                  <span> runs true to size</span>
+                </div>
+                <div>
+                  <strong>Width rating:</strong>
+                  <span> runs true to size</span>
+                </div>
               </div>
             </div>
             : <br></br>
           }
         </div>
-        <div className="reviewButton" style={{float:'right'}}>
+        <div className="reviewButton" style={{ float: 'right' }}>
           <a href="" role="button" style={buttonStyle}>
             <span>Write a Review</span></a>
         </div>
-        {
-          this.state.review.map((rev) =>
 
-            <div className='reviewDetail' key={rev._id}>
-              <br></br>
-              <StarRatings rating={rev.RATING}
-                starDimension="16px"
-                starSpacing="0px"
-                starRatedColor="#393939"
-              />
-              <br></br>
-              <strong>{rev.TITLE}</strong>
-              <br></br>
-              <span> {rev.DETAIL}</span>
-              <br></br>
-              <span> {rev.AUTHOR} | {rev.SOURCE}</span>
-              <br></br>
-              <div>
-                <span>{moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
+        <div className="reviewDetails" style={{ float: 'left' }}>
+
+          {
+            this.state.review.map((rev) =>
+
+              <div className='reviewDetail' key={rev._id} style={{borderTop:'1px solid #e3e3e3', padding:'10px', marginTop:'68px'}}>
+                <br />
+                <div style={{ float: 'right' }}>
+                  <span>{moment(rev.CREATE_DATE).format("MMM DD, YYYY")}</span>
+                  <br></br>
+                  <div style={{fontSize:'14px'}}>
+                  <strong>Fit :</strong>
+                  <span> true to size</span>
+                </div>
+                <div style={{fontSize:'14px'}}>
+                  <strong>Width :</strong>
+                  <span> true to size</span>
+                </div>
+                </div>
+                <div>
+                  <StarRatings rating={rev.RATING}
+                    starDimension="16px"
+                    starSpacing="0px"
+                    starRatedColor="#393939"
+                  />
+                  <br></br>
+                  <strong>{rev.TITLE}</strong>
+                  <br></br>
+                  <span style={{ width: '70%' }}> {rev.DETAIL}</span>
+                  <br></br>
+                  <span> {rev.AUTHOR} | {rev.SOURCE}</span>
+                  <br></br>
+                </div>
               </div>
-            </div>
-          )
-        }
+            )
+          }
+        </div>
       </div>
-
-
     );
-
   }
 }
 
 export default Index;
-// module.exports = App;
-// ReactDOM.render(<App />, document.getElementById('app'));
-
-
 
