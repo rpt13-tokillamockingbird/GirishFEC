@@ -24,6 +24,7 @@ const buttonStyle = {
   'cursor': 'pointer',
   'textDecoration': 'none',
   'color': '#393939'
+
 };
 
 class Index extends React.Component {
