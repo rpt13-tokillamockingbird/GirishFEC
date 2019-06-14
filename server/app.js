@@ -10,7 +10,7 @@ app.use(bodyparser.urlencoded({extended:false}));
 
 
 
-var port = 1204;
+var port = 3004;
 
 app.use(express.static('public'));
 
