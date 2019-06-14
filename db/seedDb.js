@@ -3,6 +3,28 @@ var faker = require('faker');
 
 const seedData = function () {
 
+  const queryStr = 'create database if not exists review';
+  db.dbConnection.query(queryStr, (err, result) => {
+    if (err) {
+      console.log('Error ', err);
+    } else {
+      // console.log('Results ', result);
+    }
+  }
+  );
+
+  const queryStr = 'create table if not exists review_detail (_id int auto_increment, Id int not null, RATING int, TITLE varchar(200), DETAIL varchar(1000), CREATE_DATE date, AUTHOR char(30), SOURCE char(20), primary key (_id))';
+  db.dbConnection.query(queryStr, (err, result) => {
+    if (err) {
+      console.log('Error ', err);
+    } else {
+      // console.log('Results ', result);
+    }
+  }
+  );
+
+
+
   for (let i = 0; i < 100; i++) {
 
     const rating = Math.floor(Math.random() * 5 + 1);
