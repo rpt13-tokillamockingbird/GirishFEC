@@ -48,27 +48,33 @@ class Index extends React.Component {
   componentDidMount() {
     let route = window.location.pathname;
 
+
     if (route !== '/') {
-      route = route.substring(1, route.length - 1);
+
+      route = route.substring(1);
 
       $.ajax({
-        url: `/review/${route}`,
+        url: `http://localhost:3004/review/${route}`,
         type: 'get',
         dataType: 'json',
         success: (data) => {
+          console.log('Success data ', data);
           let average = 0;
           if (data.length) {
             data.forEach(val => { average += val.RATING });
             average = (average / data.length);
           }
           this.setState({ review: data, avgRating: average });
+        },
+        error : (err) => {
+          console.log('Error : ',err);
         }
       });
 
     } else {
       var dataArr = [];
       $.ajax({
-        url: '/reviews/all',
+        url: `http://localhost:3004/reviews/all`,
         type: 'get',
         dataType: 'json',
         success: (data) => {
