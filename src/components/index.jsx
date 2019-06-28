@@ -54,7 +54,7 @@ class Index extends React.Component {
       route = route.substring(1);
 
       $.ajax({
-        url: `http://localhost:3004/review/${route}`,
+        url: `/review/${route}`,
         type: 'get',
         dataType: 'json',
         success: (data) => {
@@ -74,7 +74,7 @@ class Index extends React.Component {
     } else {
       var dataArr = [];
       $.ajax({
-        url: `http://localhost:3004/reviews/all`,
+        url: `/reviews/all`,
         type: 'get',
         dataType: 'json',
         success: (data) => {
