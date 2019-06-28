@@ -48,6 +48,7 @@ class Index extends React.Component {
   componentDidMount() {
     let route = window.location.pathname;
 
+    console.log(window.location.pathname);
 
     if (route !== '/') {
 
